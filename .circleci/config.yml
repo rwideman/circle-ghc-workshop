@@ -28,10 +28,3 @@ jobs:
           name: Test AWS CLI
           command: |
             aws s3 ls
-
-workflows:
-  version: 2
-  aws-cli:
-    jobs:
-      - aws-cli-example:
-          context: aws

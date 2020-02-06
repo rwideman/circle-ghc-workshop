@@ -9,22 +9,9 @@ jobs:
       - aws-cli/setup:
           profile-name: example
       - run: echo "Run your code here"
-  build:
-    docker:
-      - image: mysql:5.7
-        environment:
-          MYSQL_ROOT_PASSWORD: somewordpress
-          MYSQL_DATABASE: wordpress
-          MYSQL_USER: wordpress
-          MYSQL_PASSWORD: wordpress
-      - image: wordpress:latest
-        environment:
-          WORDPRESS_DB_HOST: db:3306
-          WORDPRESS_DB_USER: wordpress
-          WORDPRESS_DB_PASSWORD: wordpress
-          WORDPRESS_DB_NAME: wordpress
-    steps:
-      - run:
-          name: Test AWS CLI
-          command: |
-            aws s3 ls
+workflows:
+  version: 2
+  aws-cli:
+    jobs:
+      - aws-cli-example:
+          context: aws

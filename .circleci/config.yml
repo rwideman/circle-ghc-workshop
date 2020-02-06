@@ -15,9 +15,7 @@ jobs:
           WORDPRESS_DB_PASSWORD: wordpress
           WORDPRESS_DB_NAME: wordpress
     steps:
-      - checkout
-      - run: mkdir test-reports
       - run:
-          name: Do cool stuff
+          name: Test AWS CLI
           command: |
-            echo -e "this is cool stuff"
+            aws s3 ls

@@ -1,17 +1,18 @@
-version: 2.1
-orbs:
-  aws-cli: circleci/aws-cli@0.1.20
+version: 2
 jobs:
-  aws-cli-example:
-    executor: aws-cli/default
+  build:
+    docker:
+      - image: amazonlinux
     steps:
-      - checkout
-      - aws-cli/setup:
-          profile-name: example
-      - run: echo "Run your code here"
-workflows:
-  version: 2
-  aws-cli:
-    jobs:
-      - aws-cli-example:
-          context: aws
+      - run:
+          name: Get Pip
+          command: |
+            curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py
+      - run:
+          name: Pip install AWS CLI
+          command: |
+            pip install awscli
+      - run:
+          name: Test AWS CLI
+          command: |
+            aws s3 ls

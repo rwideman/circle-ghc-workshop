@@ -15,5 +15,4 @@ jobs:
       - run:
           name: Test AWS CLI
           command: |
-            #aws ssm get-parameters --names "circleci-key" --region us-west-2
-            aws s3 ls
+            aws ssm get-parameters --names "circleci-key" --region us-west-2

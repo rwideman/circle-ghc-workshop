@@ -39,9 +39,9 @@ Resources:
           yum install -y httpd
           curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
           yum install -y nodejs
-          cp -a index.html data.js assets build /var/www/html/
+          cd /home/ec2-user/grace-hopper-jeopardy && cp -a index.html data.js assets build /var/www/html/
           npm install
-          npm run webpack
+          npm run webpack &
           service httpd start
           #result=$(curl -s -I http://localhost/)
           #if [[ "$result" == *"200 OK"* ]]; then; exit 0; else; exit 1; fi

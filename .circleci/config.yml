@@ -25,5 +25,7 @@ jobs:
       - run:
           name: Deploy Application via AWS CLI
           command: |
-            aws cloudformation deploy --stack-name ghc-workshop-application-1 --template-file cfn/application.yml --parameter-overrides SharedResourceStack="ghc-workshop-shared-resources" --region us-west-2
+            if ! aws cloudformation deploy --stack-name ghc-workshop-application-1 --template-file cfn/application.yml --parameter-overrides SharedResourceStack="ghc-workshop-shared-resources" --region us-west-2 ; then
+              echo -e "No changes detected..."
+            fi
           no_output_timeout: 20m

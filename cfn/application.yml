@@ -34,16 +34,29 @@ Resources:
           yum -y update
           yum install -y ruby git 
           cd /home/ec2-user
+          #
+          # Clone GHC repo
+          #
           git clone https://github.com/ha-king/circle-ghc-workshop.git
           cd circle-ghc-workshop
+          #  
+          # Install Dependencies
+          # 
           yum install -y httpd
           curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
           yum install -y nodejs
+          #
+          # NPM Build + Copy to Webroot
+          #
           /bin/bash deployment_scripts/build_application
           /bin/bash deployment_scripts/copy_application
+          #
+          #  Start Apache
+          #
           service httpd start
-          #result=$(curl -s -I http://localhost/)
-          #if [[ "$result" == *"200 OK"* ]]; then; exit 0; else; exit 1; fi
+          #
+          # Start CWLogging  
+          #
           yum install -y awslogs gettext jq
           envsubst < config/awslogs.conf > /etc/awslogs/awslogs.conf
           AWS_REGION=`curl --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region`

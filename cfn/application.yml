@@ -35,7 +35,7 @@ Resources:
           yum install -y ruby git 
           cd /home/ec2-user
           git clone https://github.com/ha-king/circle-ghc-workshop.git
-          cd grace-hopper-jeopardy
+          cd circle-ghc-workshop
           yum install -y httpd
           curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
           yum install -y nodejs

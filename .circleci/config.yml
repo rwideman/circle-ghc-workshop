@@ -40,8 +40,6 @@ workflows:
       - build
       - hold:
           type: approval
-          requires:
-           - setup
       - deploy
           requires:
             - hold

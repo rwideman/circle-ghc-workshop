@@ -16,6 +16,19 @@ Parameters:
     Default: "/aws/service/ami-amazon-linux-latest/amzn-ami-hvm-x86_64-gp2"
 
 Resources:
+  DeploymentGroup:
+    Type: AWS::CodeDeploy::DeploymentGroup
+    Properties:
+      ApplicationName:
+        Fn::ImportValue:
+          !Sub "${SharedResourceStack}:CodeDeployApplication"
+      ServiceRoleArn:
+        Fn::ImportValue:
+          !Sub "${SharedResourceStack}:CodeDeployRole"
+      DeploymentConfigName: CodeDeployDefault.AllAtOnce
+      AutoScalingGroups:
+      - Ref: AutoScalingGroup
+
   LaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
@@ -32,24 +45,11 @@ Resources:
         Fn::Base64: !Sub |
           #!/bin/bash
           yum -y update
-          yum install -y ruby git 
+          yum install -y ruby
           cd /home/ec2-user
-          git clone https://github.com/ha-king/circle-ghc-workshop.git
-          cd grace-hopper-jeopardy
-          yum install -y httpd
-          curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
-          yum install -y nodejs
-          /bin/bash deployment_scripts/build_application
-          /bin/bash deployment_scripts/copy_application
-          service httpd start
-          #result=$(curl -s -I http://localhost/)
-          #if [[ "$result" == *"200 OK"* ]]; then; exit 0; else; exit 1; fi
-          yum install -y awslogs gettext jq
-          envsubst < config/awslogs.conf > /etc/awslogs/awslogs.conf
-          AWS_REGION=`curl --silent http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region`
-          sed -i -e "s/region = us-east-1/region = $AWS_REGION/g" /etc/awslogs/awscli.conf
-          service awslogs restart
-          chkconfig awslogs on
+          curl -O https://aws-codedeploy-${AWS::Region}.s3.amazonaws.com/latest/install
+          chmod +x ./install
+          ./install auto
 
   AutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
@@ -120,3 +120,6 @@ Outputs:
     Description: Workshop application URL
     Value:
       Fn::Sub: 'http://${LoadBalancer.DNSName}'
+  DeploymentGroup:
+    Description: Workshop application deployment group
+    Value: !Ref DeploymentGroup

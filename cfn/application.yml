@@ -121,6 +121,3 @@ Outputs:
     Description: Workshop application URL
     Value:
       Fn::Sub: 'http://${LoadBalancer.DNSName}'
-  DeploymentGroup:
-    Description: Workshop application deployment group
-    Value: !Ref DeploymentGroup

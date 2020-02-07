@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
 
-cd /home/ec2-user/grace-hopper-jeopardy
+cd /home/ec2-user/circle-ghc-workshop
 
 cp -a index.html data.js assets build /var/www/html/

@@ -4,6 +4,7 @@ jobs:
     docker:
       - image: amazonlinux
     steps:
+      - checkout
       - run:
           name: Get Pip
           command: |
@@ -15,4 +16,4 @@ jobs:
       - run:
           name: Test AWS CLI
           command: |
-            aws ssm get-parameter --name "circleci-key" --region us-west-2
+            aws cloudformation deploy --stack-name ghc-workshop-shared-resources --template-file cfn/shared_resources.yml --capabilities CAPABILITY_NAMED_IAM --parameter-overrides WorkshopName="ghc-workshop"

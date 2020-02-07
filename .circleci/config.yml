@@ -5,6 +5,10 @@ jobs:
       - image: amazonlinux
     steps:
       - checkout
+  deploy:
+    docker:
+      - image: amazonlinux
+    steps:
       - run:
           name: Get Pip
           command: |
@@ -29,3 +33,15 @@ jobs:
               echo -e "No changes detected..."
             fi
           no_output_timeout: 20m
+workflows:
+  version: 2
+  build_test_approve_deploy:
+    jobs:
+      - build
+      - hold:
+          type: approval
+          requires:
+           - setup
+      - deploy
+          requires:
+            - hold

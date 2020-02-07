@@ -79,8 +79,8 @@ var data = [
     "questions": [
       {
         "points": 100,
-        "question": "What city is hosting GHC 2018?",
-        "answer": "Houston, Texas"
+        "question": "What city is hosting GHC 2019?",
+        "answer": "Orlando, FL"
       },
       {
         "points": 200,

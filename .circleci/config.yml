@@ -17,7 +17,9 @@ jobs:
           name: Deploy Shared Resources via AWS CLI
           command: |
             #aws cloudformation deploy --stack-name ghc-workshop-shared-resources --template-file cfn/shared_resources.yml --capabilities CAPABILITY_NAMED_IAM --parameter-overrides WorkshopName="ghc-workshop" --region us-west-2
+          no_output_timeout: 20m
       - run:
           name: Deploy Application via AWS CLI
           command: |
             aws cloudformation deploy --stack-name ghc-workshop-application-1 --template-file cfn/application.yml --parameter-overrides SharedResourceStack="ghc-workshop-shared-resources" --region us-west-2
+          no_output_timeout: 20m

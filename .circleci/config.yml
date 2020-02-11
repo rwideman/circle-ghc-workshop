@@ -9,6 +9,7 @@ jobs:
     docker:
       - image: amazonlinux
     steps:
+      - checkout
       - run:
           name: Get Pip
           command: |
@@ -32,7 +33,7 @@ jobs:
             if ! aws cloudformation deploy --stack-name ghc-workshop-application-$CIRCLE_PROJECT_USERNAME --template-file cfn/application.yml --parameter-overrides SharedResourceStack="ghc-workshop-shared-resources" --region us-west-2 ; then
               echo -e "No changes detected..."
             else
-              aws cloudformation deploy --stack-name ghc-workshop-application-$CIRCLE_PROJECT_USERNAME --template-file cfn/application.yml --parameter-overrides SharedResourceStack="ghc-workshop-shared-resources"
+              aws cloudformation deploy --stack-name ghc-workshop-application-$CIRCLE_PROJECT_USERNAME --template-file cfn/application.yml --parameter-overrides SharedResourceStack="ghc-workshop-shared-resources" --region us-west-2 
             fi
           no_output_timeout: 20m
 workflows:

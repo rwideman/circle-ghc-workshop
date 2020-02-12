@@ -31,17 +31,18 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
+          echo "version 1.0" > version.txt
           yum -y update
-          yum install -y ruby git 
+          yum install -y ruby git
           cd /home/ec2-user
           ##################
           # Clone GHC repo #
           ##################
           git clone https://github.com/ha-king/circle-ghc-workshop.git
           cd circle-ghc-workshop
-          ######################
-          # Install Dependencies
-          ###################### 
+          ########################
+          # Install Dependencies #
+          ########################
           yum install -y httpd
           curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
           yum install -y nodejs

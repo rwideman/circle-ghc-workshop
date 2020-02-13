@@ -53,6 +53,7 @@ aws cloudformation delete-stack --stack-name ghc-workshop-application-1
 ```
 
 ## Credits
+* Adapted from [Grace Hopper Jeopardy](https://github.com/clareliguori/grace-hopper-jeopardy)
 * Based on [React Trivia](https://github.com/ccoenraets/react-trivia)
 * Grace Hopper clip art by [gingercoons](https://openclipart.org/detail/137533/grace-hopper)
 

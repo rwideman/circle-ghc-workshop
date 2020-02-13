@@ -33,7 +33,7 @@ In a new terminal / PuTTY session:
     docker commit containerId ghc:1.0
     docker run -itd -p 8000:80 ghc:1.0 /bin/bash
 
-In your browser visit: ```http://localhost:8000"
+In your browser visit: ```http://localhost:8000```
 
 ## Deploy on AWS
 

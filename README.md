@@ -1,6 +1,6 @@
 # CircleCI - Grace Hopper Jeopardy
 
-## Run locally
+## Run locally - Host
 
 Run the following:
 
@@ -9,9 +9,36 @@ Run the following:
 
 Then open index.html in your browser.
 
+## Run locally - Docker
+
+In terminal / PuTTY session:
+
+    docker pull amazonlinux
+    containerId=$(docker run -itd amazonlinux /bin/bash)
+    docker exec -it $containerId /bin/bash
+
+    yum update -y
+    yum install -y tar nano git httpd
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+    . ~/.nvm/nvm.sh
+    nvm install node
+    node -e "console.log('Running Node.js ' + process.version)"
+    cd ~ && git clone https://github.com/YOUR_GITHUB_PUBLIC_FORK_HERE/circle-ghc-workshop.git
+    cd circle-ghc-workshop
+    npm install
+    npm run webpack
+
+In a new terminal / PuTTY session:
+
+    docker commit containerId ghc:1.0
+    docker run -itd -p 8000:80 ghc:1.0 /bin/bash
+
+In your browser visit: ```http://localhost:8000"
+
 ## Deploy on AWS
 
-### Note: CircleCI requires IAM user access key id + secret key. Create environmental variables for these values in CircleCI web console under project system gear icon:
+### Note: 
+#####CircleCI requires IAM user access key id + secret key. Create environmental variables for these values in CircleCI web console under project system gear icon:
 
     AWS_ACCESS_KEY_ID
     AWS_SECRET_ACCESS_KEY
